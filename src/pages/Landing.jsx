@@ -28,12 +28,12 @@ export default function Landing() {
       <section id="about" className="section">
         <h2>About ZeroHour</h2>
         <p className="lead">
-          ZeroHour is a 24-hour hackathon where teams use mathematics and logic to build something new.
+          To be announced
         </p>
         <div className="grid3">
-          <div className="feature"><h3>24 hours</h3><p>One continuous build sprint, from kickoff to final demo.</p></div>
-          <div className="feature"><h3>Mentors on the floor</h3><p>Shortlisted teams can request a mentor and get help at their table.</p></div>
-          <div className="feature"><h3>Fair judging</h3><p>Every team is scored on the same criteria by multiple mentors.</p></div>
+          <div className="feature"><h3>Format</h3><p>To be announced</p></div>
+          <div className="feature"><h3>Mentorship</h3><p>To be announced</p></div>
+          <div className="feature"><h3>Judging</h3><p>To be announced</p></div>
         </div>
       </section>
 
