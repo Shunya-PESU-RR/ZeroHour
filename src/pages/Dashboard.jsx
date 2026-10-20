@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { weightedScore } from '../config/rubric';
 import {
-  useData, selectRequests, selectTeams, selectMentors, selectEvaluations,
+  useData, selectRequests, selectTeams, selectMentors, selectEvaluations, selectCriteria,
   updateRequest, createRequest,
 } from '../lib/api';
 import { REQUEST_STATUS as S } from '../types';
@@ -12,7 +12,6 @@ function RequestsTab() {
   const teams = useData(selectTeams);
   const [claimer, setClaimer] = useState({});
   const mentorName = (id) => mentors.find((m) => m.id === id)?.name ?? '-';
-
   const columns = [
     { key: S.OPEN, title: 'Open' },
     { key: S.CLAIMED, title: 'Claimed' },
@@ -21,7 +20,7 @@ function RequestsTab() {
 
   return (
     <>
-      <button className="ghost" onClick={() => {
+      <button className="ghost" disabled={!teams.length} onClick={() => {
         const t = teams[Math.floor(Math.random() * teams.length)];
         createRequest({ table: t.table, issue: 'Test request from table ' + t.table });
       }}>Add test request</button>
@@ -69,6 +68,7 @@ function EvaluationsTab() {
   const teams = useData(selectTeams);
   const mentors = useData(selectMentors);
   const evaluations = useData(selectEvaluations);
+  const criteria = useData(selectCriteria);
   const find = (teamId, mentorId) => evaluations.find((e) => e.teamId === teamId && e.mentorId === mentorId);
   const done = evaluations.length;
   const total = teams.length * mentors.length;
@@ -79,10 +79,7 @@ function EvaluationsTab() {
       <div className="scroll">
         <table>
           <thead>
-            <tr>
-              <th>Team</th>
-              {mentors.map((m) => <th key={m.id}>{m.name}</th>)}
-            </tr>
+            <tr><th>Team</th>{mentors.map((m) => <th key={m.id}>{m.name}</th>)}</tr>
           </thead>
           <tbody>
             {teams.map((t) => (
@@ -92,7 +89,7 @@ function EvaluationsTab() {
                   const ev = find(t.id, m.id);
                   return (
                     <td key={m.id} className={ev ? 'done' : 'pending'} title={ev?.comment || ''}>
-                      {ev ? weightedScore(ev.scores).toFixed(2) : 'Pending'}
+                      {ev ? weightedScore(ev.scores, criteria).toFixed(2) : 'Pending'}
                     </td>
                   );
                 })}

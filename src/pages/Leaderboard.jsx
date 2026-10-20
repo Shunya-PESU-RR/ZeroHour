@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { weightedScore } from '../config/rubric';
-import { useData, selectTeams, selectMentors, selectEvaluations } from '../lib/api';
+import { useData, selectTeams, selectMentors, selectEvaluations, selectCriteria } from '../lib/api';
 
 const FILTERS = [10, 20, 'All'];
 
@@ -8,18 +8,17 @@ export default function Leaderboard() {
   const teams = useData(selectTeams);
   const mentors = useData(selectMentors);
   const evaluations = useData(selectEvaluations);
+  const criteria = useData(selectCriteria);
   const [filter, setFilter] = useState(10);
 
-  // One row per team that has at least one evaluation: average of the mentors' weighted scores
   const rows = teams
     .map((team) => {
       const evs = evaluations.filter((e) => e.teamId === team.id);
-      const perMentor = Object.fromEntries(evs.map((e) => [e.mentorId, weightedScore(e.scores)]));
-      const avg = evs.length ? evs.reduce((sum, e) => sum + weightedScore(e.scores), 0) / evs.length : null;
+      const perMentor = Object.fromEntries(evs.map((e) => [e.mentorId, weightedScore(e.scores, criteria)]));
+      const avg = evs.length ? evs.reduce((s, e) => s + weightedScore(e.scores, criteria), 0) / evs.length : null;
       return { team, perMentor, avg, count: evs.length };
     })
     .filter((r) => r.avg !== null)
-    // Tie-break: more evaluations first, then team name
     .sort((a, b) => b.avg - a.avg || b.count - a.count || a.team.name.localeCompare(b.team.name));
 
   const shown = filter === 'All' ? rows : rows.slice(0, filter);
@@ -45,11 +44,9 @@ export default function Leaderboard() {
           <table>
             <thead>
               <tr>
-                <th>Rank</th>
-                <th>Team</th>
+                <th>Rank</th><th>Team</th>
                 {mentors.map((m) => <th key={m.id}>{m.name}</th>)}
-                <th>Evals</th>
-                <th>Average / 10</th>
+                <th>Evals</th><th>Average / 10</th>
               </tr>
             </thead>
             <tbody>
