@@ -20,7 +20,7 @@ export default function Landing() {
         <h1>ZERO<span>HOUR</span></h1>
         <p className="tagline">Mathematics &bull; Logic &bull; Exploration</p>
         <div className="cta">
-          <Link className="btn primary" to="/register">Register your team</Link>
+          <a className="btn primary" href="https://youtube.com" target="_blank" rel="noreferrer">Register your team</a>
           <a className="btn" href="#about">Learn more</a>
         </div>
       </section>
@@ -47,7 +47,6 @@ export default function Landing() {
         </ol>
         <div className="cta">
           <Link className="btn primary" to="/register">Register now</Link>
-          <Link className="btn" to="/mentor-access">Request mentor access</Link>
         </div>
       </section>
 

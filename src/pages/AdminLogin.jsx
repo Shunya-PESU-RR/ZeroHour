@@ -1,28 +1,73 @@
+
 import { useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
-import { adminLogin, isAdmin } from '../lib/api';
+import { useAuth } from '../context/useAuth';
 
 export default function AdminLogin() {
+  const { user, isOrganizer, loading, signIn } = useAuth();
   const navigate = useNavigate();
-  const [user, setUser] = useState('');
-  const [pass, setPass] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  if (isAdmin()) return <Navigate to="/admin" replace />;
+  const [submitting, setSubmitting] = useState(false);
 
-  function submit(e) {
-    e.preventDefault();
-    if (adminLogin(user.trim(), pass)) navigate('/admin');
-    else setError('Wrong username or password.');
+  if (loading) {
+    return <main className="page"><section className="panel">Loading...</section></main>;
+  }
+
+  if (user && isOrganizer) {
+    return <Navigate to="/admin" replace />;
+  }
+
+  async function submit(event) {
+    event.preventDefault();
+    setError('');
+    setSubmitting(true);
+
+    try {
+      await signIn(email.trim(), password);
+      // AuthContext updates after sign-in; check the organizer role below.
+      navigate('/admin', { replace: true });
+    } catch (err) {
+      setError(err.message || 'Login failed. Check your credentials.');
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
     <main className="page">
       <form className="panel" onSubmit={submit}>
         <h2>Admin login</h2>
-        <label className="field">Username<input value={user} onChange={(e) => setUser(e.target.value)} autoComplete="username" /></label>
-        <label className="field">Password<input type="password" value={pass} onChange={(e) => setPass(e.target.value)} autoComplete="current-password" /></label>
-        {error && <p className="err">{error}</p>}
-        <button className="primary" type="submit">Log in</button>
+        <p className="muted">Sign in with your authorized organizer account.</p>
+
+        <label className="field">
+          Email
+          <input
+            type="email"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+            autoComplete="username"
+            required
+          />
+        </label>
+
+        <label className="field">
+          Password
+          <input
+            type="password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            autoComplete="current-password"
+            required
+          />
+        </label>
+
+        {error && <p className="err" role="alert">{error}</p>}
+
+        <button className="primary" type="submit" disabled={submitting}>
+          {submitting ? 'Signing in...' : 'Log in'}
+        </button>
       </form>
     </main>
   );
