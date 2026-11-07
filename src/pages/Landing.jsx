@@ -5,6 +5,7 @@ import ShunyaLogo from "../components/ShunyaLogo"
 import MoireBackground from "../components/MoireBackground"
 import AnamorphicInfinity from "./AnamorphicInfinity"
 import SocialFooter from "../components/SocialFooter"
+import { Competition, EventContact, ParticipantGuide, SectionHeading, Tracks } from './EventProgram'
 import "./landing.css"
 
 const Arrow = () => <span aria-hidden="true">↗</span>
@@ -127,35 +128,20 @@ function Hero() {
   )
 }
 
-const SectionHeading = ({
-  number,
-  label,
-  title,
-  text,
-}) => (
-  <div className="section-heading">
-    <div className="section-kicker">
-      <span>{number}</span> {label}
-    </div>
-    <h2>{title}</h2>
-    {text && <p>{text}</p>}
-  </div>
-)
-
 function About() {
   return (
     <section className="section about" id="about">
       <SectionHeading
         number="01"
         label="ABOUT ZEROHOUR"
-        title="Where Mathematics meets Innovation."
-        text="ZEROHOUR 1.0 is a 24-hour state-level hackathon presented by SHUNYA, bringing together ambitious minds to challenge conventions, explore mathematical thinking, and transform bold ideas into real-world solutions."
+        title="Where Mathematics Meets Innovation."
+        text="ZeroHour 1.0 is a two-day state-level hackathon organized by SHUNYA, PES University, bringing together students passionate about mathematics, technology, programming, logical reasoning, and innovation."
       />
       <div className="about-layout">
         <div className="about-statement">
           <PhasePortrait />
           <p>
-            It's more than just coding. It's about creativity, collaboration, problem-solving, and pushing the boundaries of what you can build in 24 hours.
+            Collaborate with your team, explore challenging problem domains, and turn analytical ideas into practical solutions through creativity, technical implementation, and teamwork.
           </p>
           <small>SHUNYA </small>
         </div>
@@ -163,17 +149,17 @@ function About() {
           <article>
             <span>01</span>
             <h3>Think Beyond Limits</h3>
-            <p>Challenge conventional thinking, explore new perspectives, and discover innovative approaches to complex problems.</p>
+            <p>Challenge conventional thinking and explore innovative approaches to complex problems.</p>
           </article>
           <article>
             <span>02</span>
-            <h3>Build together</h3>
-            <p>Collaborate with your team, combine your strengths, and turn ambitious ideas into working solutions.</p>
+            <h3>Build Together</h3>
+            <p>Combine your team's strengths to transform ambitious ideas into working solutions.</p>
           </article>
           <article>
             <span>03</span>
             <h3>Make It Count</h3>
-            <p>Put your skills to the test, push your boundaries, and create something that stands out when it matters most.</p>
+            <p>Push your technical abilities, demonstrate your creativity, and compete with ambitious minds.</p>
           </article>
         </div>
       </div>
@@ -185,7 +171,7 @@ function Details() {
   return (
     <section className="section details" id="details">
       <SectionHeading
-        number="02"
+        number="05"
         label="EVENT DETAILS"
         title="24 hours. Zero assumptions."
       />
@@ -203,41 +189,6 @@ function Details() {
 
         <article><span>TEAM SIZE</span><b>3–4</b><strong>PEOPLE</strong></article>
         <article><span>VENUE</span><b>13TH FLOOR</b><strong>BE BLOCK</strong></article>
-      </div>
-    </section>
-  )
-}
-
-function Timeline() {
-  return (
-    <section className="section timeline">
-      <SectionHeading
-        number="03"
-        label="TIMELINE"
-        title="From Registration to Reality"
-      />
-      <div className="timeline-track">
-        <i className="timeline-line" />
-        <article>
-          <span>01</span>
-          <b>REGISTER YOUR TEAM</b>
-          <p>Gather your team and secure your spot</p>
-        </article>
-        <article>
-          <span>02</span>
-          <b>MAKE THE CUT</b>
-          <p>Get shortlisted and prepare for the challenge ahead</p>
-        </article>
-        <article>
-          <span>03</span>
-          <b>THINK BEFORE YOU BUILD</b>
-          <p>Dive into research, explore the mathematics, and develop your approach</p>
-        </article>
-        <article>
-          <span>04</span>
-          <b>BRING IT TO LIFE</b>
-          <p>Turn your ideas into working solutions over 24 hours</p>
-        </article>
       </div>
     </section>
   )
@@ -273,22 +224,23 @@ export default function Landing() {
         <MoireBackground />
         <Hero />
         <About />
-        <section className="section zero-hour-concept">
-          <SectionHeading number="01B" label="THE ZERO HOUR" title="Before the code, the math." />
+        <section className="section zero-hour-concept" id="zero-hour">
+          <SectionHeading number="02" label="THE ZERO HOUR" title="Before the code, the math." />
           <div className="about-statement">
             <PhasePortrait />
-            <p>
-              At ZeroHour, innovation begins where conventional thinking ends.
-
-24 hours of intense problem-solving, bold ideas, and unexpected challenges await. Push your mathematical intuition, challenge your assumptions, and turn creativity into something extraordinary.
-
-But there's a twist. The first hour plays by different rules. Are you ready?
-            </p>
+            <div className="zero-hour-copy">
+              <p>At ZeroHour, innovation begins where conventional thinking ends.</p>
+              <p>24 hours of intense problem-solving, bold ideas, and unexpected challenges await. Push your mathematical intuition, challenge your assumptions, and turn creativity into something extraordinary.</p>
+              <p>But there's a twist. The first hour plays by different rules. Are you ready?</p>
+            </div>
           </div>
         </section>
+        <Tracks />
+        <Competition />
         <Details />
-        <Timeline />
+        <ParticipantGuide />
         <Registration />
+        <EventContact />
       </main>
       <SocialFooter />
     </div>

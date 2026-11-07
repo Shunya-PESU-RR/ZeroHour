@@ -363,18 +363,12 @@
 .landing .phase-curve:last-child { stroke: var(--accent); }
 .landing .about-statement > :is(p, small) { position: relative; }
 .landing .about-statement:hover .phase-portrait { opacity: .6; }
-.landing .timeline-track article:hover span { border-color: var(--accent); color: var(--accent); }
 
 @media (prefers-reduced-motion: no-preference) {
   .landing .phase-portrait {
     animation: phase-drift 16s ease-in-out infinite alternate;
     transition: opacity .35s ease;
   }
-  .landing .timeline-track article span { transition: transform .25s ease, color .25s ease; }
-}
-
-@media (hover: hover) and (prefers-reduced-motion: no-preference) {
-  .landing .timeline-track article:hover span { transform: translateY(-4px); }
 }
 
 @keyframes phase-drift {
@@ -387,7 +381,7 @@
 .landing .about-cards article > span { position: absolute; top: 22px; left: 6px; color: #ff9f88; font: .68rem var(--font-mono); }
 .landing .about-cards h3 { margin-bottom: 4px; }
 
-.landing .detail-grid, .landing .timeline-track { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 13px; }
+.landing .detail-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 13px; }
 .landing .detail-grid article {
   display: grid;
   align-content: space-between;
@@ -399,28 +393,6 @@
 .landing .detail-grid article > span, .landing .detail-grid article > p { color: var(--muted); font: .67rem/1.5 var(--font-mono); }
 .landing .detail-grid b { font-family: var(--font-display); font-size: clamp(1.3rem, 3.4vw, 3rem); line-height: 1; letter-spacing: -.06em; }
 .landing .detail-grid strong { color: var(--mint); font: 700 clamp(.9rem, 1.5vw, 1.4rem) var(--font-mono); }
-
-.landing .timeline-track { position: relative; }
-.landing .timeline-track article { position: relative; display: grid; justify-items: start; gap: 7px; }
-.landing .timeline-track article span {
-  display: grid;
-  place-items: center;
-  width: 35px;
-  height: 35px;
-  margin-bottom: 15px;
-  border: 1px solid #ad645d;
-  background: #211423;
-  font: .7rem var(--font-mono);
-  box-shadow: 3px 3px 0 #100c12, 3px 3px 0 1px #61465e;
-}
-.landing .timeline-track b { font: 700 .72rem/1.5 var(--font-mono); }
-.landing .timeline-track p { color: var(--muted); font-size: .86rem; }
-.landing .timeline-line {
-  position: absolute;
-  inset: 17px 4% auto 0;
-  height: 1px;
-  background: linear-gradient(90deg, var(--accent), var(--ultraviolet), var(--mint));
-}
 
 .landing .registration {
   display: grid;
@@ -446,10 +418,6 @@
   .landing nav a { min-height: 32px; }
   .landing .hero-coordinate { font-size: .61rem; }
   .landing .event-stamp { gap: 10px 18px; }
-  .landing .timeline-track { grid-template-columns: 1fr; gap: 21px; }
-  .landing .timeline-track article { padding-left: 51px; }
-  .landing .timeline-track article span { position: absolute; left: 0; }
-  .landing .timeline-line { inset: 17px auto 17px 17px; width: 1px; height: auto; background: linear-gradient(var(--accent), var(--ultraviolet), var(--mint)); }
 }
 
 @media (prefers-reduced-motion: reduce) {
