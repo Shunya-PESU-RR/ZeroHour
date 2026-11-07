@@ -1,0 +1,41 @@
+.shunya-about { --shunya-gradient: linear-gradient(110deg, #4388ff, #9862df); }
+.shunya-about main { background: radial-gradient(ellipse at 90% 30%, #7259c818, transparent 65%), #100c12; }
+.shunya-about main::before, .shunya-about main::after { content: none; }
+.shunya-content { width: min(1120px, calc(100% - 2 * var(--gutter))); margin-inline: auto; padding-block: clamp(48px, 7vw, 100px); }
+.shunya-intro { margin-bottom: clamp(36px, 5vw, 72px); }
+.shunya-intro h1 { font-size: clamp(2.6rem, 6.2vw, 5.5rem); line-height: 1.12; letter-spacing: -.045em; background: var(--shunya-gradient); background-clip: text; color: transparent; padding-bottom: .12em; }
+.shunya-intro > p { max-width: 750px; margin-top: 20px; font-size: clamp(1rem, 1.7vw, 1.35rem); }
+.shunya-about p { color: var(--muted); line-height: 1.75; }
+.shunya-story { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.2fr); gap: 24px; align-items: start; }
+.shunya-card { min-width: 0; margin: 0; padding: clamp(24px, 3vw, 40px); border: 1px solid #b49ab52b; border-radius: 20px; background: linear-gradient(135deg, #1b1421f5, #130f18f5); }
+.shunya-card h2 { margin-bottom: 24px; font-size: clamp(1.4rem, 2.5vw, 2.1rem); line-height: 1.2; letter-spacing: -.025em; }
+.shunya-card > p + p { margin-top: 20px; }
+.shunya-card .shunya-label { margin-bottom: 22px; color: #b697ee; font: 700 .75rem/1.5 var(--font-mono); letter-spacing: .12em; }
+.shunya-team { position: relative; aspect-ratio: 1.43; padding: 0; overflow: hidden; }
+.shunya-photo-placeholder { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 14px; color: #b697ee; background: radial-gradient(ellipse at 75% 30%, #7259c830, transparent 65%), repeating-radial-gradient(circle at 70% 45%, transparent 0 10px, #b697ee0d 10.5px 11px, transparent 11.5px); }
+.shunya-photo-placeholder p { font: .75rem/1.5 var(--font-mono); }
+.shunya-team-photo { width: 100%; height: 100%; object-fit: cover; display: block; }
+.shunya-team figcaption { position: absolute; inset: auto 0 0; padding: clamp(24px, 3vw, 36px); background: linear-gradient(transparent, #100c12e6 40%, #100c12); }
+.shunya-team figcaption .shunya-label { margin-bottom: 10px; }
+.shunya-team figcaption h2 { margin: 0; font-size: clamp(1.2rem, 2.2vw, 1.8rem); }
+.shunya-community { display: grid; grid-template-columns: minmax(0, 1.5fr) repeat(2, minmax(0, .85fr)); gap: 24px; margin-top: 24px; }
+.shunya-stat { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+.shunya-stat strong { font: 700 clamp(3rem, 6vw, 5rem)/1.1 var(--font-display); background: var(--shunya-gradient); background-clip: text; color: transparent; margin-bottom: 20px; }
+.shunya-stat h2 { font-size: 1.15rem; margin-bottom: 10px; }
+.shunya-stat p { font-size: .85rem; }
+.shunya-philosophy { margin-top: clamp(32px, 5vw, 64px); text-align: center; padding-block: clamp(36px, 5vw, 64px); }
+.shunya-philosophy blockquote { margin: 0 auto 28px; max-width: 900px; font: 700 clamp(1.7rem, 3.8vw, 3rem)/1.2 var(--font-display); letter-spacing: -.03em; }
+.shunya-philosophy p { max-width: 760px; margin-inline: auto; font-size: clamp(1rem, 1.6vw, 1.2rem); }
+.shunya-about .moire-background[data-intensity="subtle"] .moire-field { opacity: .3; }
+@media (max-width: 850px) {
+  .shunya-story { grid-template-columns: minmax(0, 1fr); }
+  .shunya-community { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .shunya-community > :first-child { grid-column: 1 / -1; }
+}
+@media (max-width: 450px) {
+  .shunya-community { gap: 14px; }
+  .shunya-stat { padding: 24px 12px; }
+  .shunya-stat strong { font-size: 2.8rem; }
+  .shunya-stat h2 { font-size: 1rem; }
+  .shunya-photo-placeholder { padding-bottom: 48px; }
+}

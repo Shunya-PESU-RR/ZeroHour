@@ -1,6 +1,6 @@
 export const MAX_SCORE = 10;
 
-// Default criteria. Organizers can replace these from Admin > Setup (upload).
+// Shared criteria for live evaluations and rankings.
 export const DEFAULT_CRITERIA = [
   { id: 'idea', label: 'Idea & originality', weight: 0.25 },
   { id: 'tech', label: 'Technical execution', weight: 0.3 },

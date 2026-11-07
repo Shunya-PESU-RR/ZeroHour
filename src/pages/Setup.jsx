@@ -1,8 +1,6 @@
 import { useState } from 'react';
-import {
-  useData, selectTeams, selectMentors, selectCriteria, selectRegistrations, selectAccessRequests,
-  replaceTeams, replaceMentors, replaceCriteria, setAccessStatus,
-} from '../lib/api';
+import { useData, selectTeams, selectMentors, selectError, selectLoading } from '../lib/api';
+import { getLocalSetup, replaceLocalList, setLocalAccessStatus } from '../lib/localSetup';
 import { parseTeams, parseCriteria, parseNames } from '../lib/parse';
 
 function UploadBox({ title, help, example, current, onApply }) {
@@ -32,38 +30,57 @@ function UploadBox({ title, help, example, current, onApply }) {
 export default function Setup() {
   const teams = useData(selectTeams);
   const mentors = useData(selectMentors);
-  const criteria = useData(selectCriteria);
-  const registrations = useData(selectRegistrations);
-  const accessRequests = useData(selectAccessRequests);
+  const loading = useData(selectLoading);
+  const error = useData(selectError);
+  const [local, setLocal] = useState(getLocalSetup);
+  const [accessError, setAccessError] = useState('');
+  const { criteria, registrations, accessRequests } = local;
 
-  const apply = (parse, replace, label) => (text) => {
+  const apply = (parse, key) => (text) => {
     const res = parse(text);
     if (res.error) return { ok: false, message: res.error };
-    replace(res.items);
-    return { ok: true, message: 'Loaded ' + res.items.length + ' ' + label + '. Existing evaluations were cleared.' };
+    try {
+      setLocal(replaceLocalList(key, res.items));
+      return { ok: true, message: 'Saved ' + res.items.length + ' entries in this browser.' };
+    } catch {
+      return { ok: false, message: 'Could not save the entries in this browser.' };
+    }
   };
+
+  function changeAccessStatus(id, status) {
+    setAccessError('');
+    try {
+      setLocal(setLocalAccessStatus(id, status));
+    } catch {
+      setAccessError('Could not save the status in this browser.');
+    }
+  }
 
   return (
     <section className="panel wide">
       <h2>Setup</h2>
-      <p className="muted">Upload a .txt or .csv file (or paste text) and press Apply. Applying replaces the current list and clears evaluations.</p>
+      {error && <p className="err" role="alert">{error}</p>}
+      {loading ? <p role="status">Loading live roster…</p> : (
+        <p>Live roster: {teams.length} teams · {mentors.length} staff</p>
+      )}
+      <p className="muted">Uploads, registration records, and access approvals below are stored in this browser. Live scoring uses the event rubric.</p>
 
       <div className="grid3">
-        <UploadBox title="Teams" current={teams.length + ' loaded'}
+        <UploadBox title="Local teams" current={local.teams.length + ' saved'}
           help="One team per line. Optionally start with the table number: 12, Team name."
           example={'1, Team Alpha\n2, Byte Me'}
-          onApply={apply(parseTeams, replaceTeams, 'teams')} />
-        <UploadBox title="Evaluation criteria" current={criteria.length + ' loaded'}
+          onApply={apply(parseTeams, 'teams')} />
+        <UploadBox title="Local evaluation criteria" current={criteria.length + ' saved'}
           help="One per line: criterion name, weight. Weights are normalised to 100%."
           example={'Idea & originality, 25\nTechnical execution, 30'}
-          onApply={apply(parseCriteria, replaceCriteria, 'criteria')} />
-        <UploadBox title="Mentors" current={mentors.length + ' loaded'}
+          onApply={apply(parseCriteria, 'criteria')} />
+        <UploadBox title="Local mentors" current={local.mentors.length + ' saved'}
           help="One mentor name per line."
           example={'Asha\nRahul'}
-          onApply={apply(parseNames, replaceMentors, 'mentors')} />
+          onApply={apply(parseNames, 'mentors')} />
       </div>
 
-      <h3>Registrations <small>{registrations.length}</small></h3>
+      <h3>Local registrations <small>{registrations.length}</small></h3>
       {registrations.length === 0 ? <p className="empty">No registrations yet.</p> : (
         <div className="scroll"><table>
           <thead><tr><th>Team</th><th>College</th><th>Email</th><th>Members</th></tr></thead>
@@ -73,7 +90,8 @@ export default function Setup() {
         </table></div>
       )}
 
-      <h3>Mentor access requests <small>{accessRequests.length}</small></h3>
+      <h3>Local mentor access requests <small>{accessRequests.length}</small></h3>
+      {accessError && <p className="err" role="alert">{accessError}</p>}
       {accessRequests.length === 0 ? <p className="empty">No requests yet.</p> : (
         <div className="scroll"><table>
           <thead><tr><th>Team</th><th>Email</th><th>Note</th><th>Status</th><th></th></tr></thead>
@@ -82,8 +100,8 @@ export default function Setup() {
               <td>{a.teamName}</td><td>{a.email}</td><td>{a.note || '-'}</td><td>{a.status}</td>
               <td>
                 <div className="row">
-                  <button onClick={() => setAccessStatus(a.id, 'approved')}>Approve</button>
-                  <button onClick={() => setAccessStatus(a.id, 'rejected')}>Reject</button>
+                  <button onClick={() => changeAccessStatus(a.id, 'approved')}>Approve</button>
+                  <button onClick={() => changeAccessStatus(a.id, 'rejected')}>Reject</button>
                 </div>
               </td>
             </tr>
