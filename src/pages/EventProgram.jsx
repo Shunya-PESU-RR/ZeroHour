@@ -1,4 +1,5 @@
 import { PUBLIC_REGISTRATION_URL } from "../components/Layouts"
+import { eventSessions, eventVenue, overnightNotice } from "./eventSchedule"
 import "./event-program.css"
 
 export function SectionHeading({ number, label, title, text, id }) {
@@ -104,7 +105,7 @@ const rounds = [
     title: "Online Submission & Evaluation",
     description: "Participants receive problem statements and submit their proposed solutions online. Entries are evaluated on feasibility, technical understanding, creativity, and problem-solving ability.",
     criteria: ["Solution quality and feasibility", "Technical approach", "Creativity and innovation", "Problem-solving ability"],
-    outcome: "Shortlisted teams advance. Only shortlisted teams must pay the ₹600 registration fee before proceeding.",
+    outcome: "Teams shortlisted after the online preliminary round must pay a registration fee of ₹600 before proceeding.",
   },
   {
     title: "Development & Coding",
@@ -166,8 +167,12 @@ const evaluation = [
 
 const faqs = [
   ["What is ZeroHour?", "ZeroHour 1.0 is a two-day state-level mathematics and technology hackathon organized by SHUNYA, PES University."],
-  ["When and where is the event?", "November 14–15, 2026, at the 13th Floor, BE Block, PES University."],
-  ["How many people can participate in a team?", "Teams consist of 3–4 members."],
+  ["When is ZeroHour 1.0?", "November 14 and 15, 2026."],
+  ["What are the event timings?", eventSessions.map(({ date, hours }) => `${date}: ${hours}.`).join(" ")],
+  ["Where is ZeroHour taking place?", `${eventVenue}.`],
+  ["Will overnight accommodation be provided?", `No. ${overnightNotice}`],
+  ["How many members are allowed in a team?", "Teams of 3–4 members."],
+  ["Is ZeroHour a continuous overnight hackathon?", "No. The event has scheduled sessions on November 14 and 15, and overnight stay will not be provided."],
   ["What are the available tracks?", tracks.map(track => track.title).join("; ") + "."],
   ["How does the competition work?", "The competition includes an online submission and evaluation round, a development and coding round, and a final coding and evaluation round."],
   ["Is there a registration fee?", "Shortlisted teams must pay ₹600 before proceeding beyond the online preliminary round."],
@@ -195,14 +200,14 @@ export function ParticipantGuide() {
       <section className="section event-program" id="prizes" aria-labelledby="prizes-heading">
         <SectionHeading id="prizes-heading" number="08" label="PRIZES & RECOGNITION" title="The Best Rise to the Top." />
         <ol className="program-podium">
-          {["First Prize", "Second Prize", "Third Prize"].map((prize, index) => (
-            <li key={prize}><span aria-hidden="true">0{index + 1}</span><strong>{prize}</strong></li>
+          {["First Place", "Second Place", "Third Place"].map((prize, index) => (
+            <li key={prize}><span aria-hidden="true">#{index + 1}</span><strong>{prize}</strong></li>
           ))}
         </ol>
-        <p>Additional prize pool and reward details will be communicated by the organizers.</p>
+        <p>Prizes will be awarded to the top three teams. Exact amounts are yet to be confirmed.</p>
       </section>
       <section className="section event-program" id="faq" aria-labelledby="faq-heading">
-        <SectionHeading id="faq-heading" number="09" label="FAQs" title="Good Questions." />
+        <SectionHeading id="faq-heading" number="09" label="FAQs" title="Commonly Asked Questions" />
         {faqs.map(([question, answer]) => <Accordion key={question} title={question}><p>{answer}</p></Accordion>)}
       </section>
     </>
@@ -213,11 +218,23 @@ export function EventContact() {
   return (
     <section className="section event-program program-contact" aria-labelledby="contact-heading">
       <h2 id="contact-heading">Event queries</h2>
-      <ul>
-        <li>Madhu Sripada <a href="tel:+918431353950">84313 53950</a></li>
-        <li>Janhavi Rajpurohit <a href="tel:+919606825231">96068 25231</a></li>
-        <li><a href="https://www.instagram.com/p/Dfbc2arTuQp/?psln=MTB3OHZ0dGNlbjI4OA==" target="_blank" rel="noreferrer">Official Instagram event post ↗</a></li>
-      </ul>
+<ul className="contact-list">
+  <li>
+    Madhu Sripada <a href="tel:+918431353950">+91 84313 53950</a>
+  </li>
+  <li>
+    Janhavi Rajpurohit <a href="tel:+919606825231">+91 96068 25231</a>
+  </li>
+  <li>
+    <a
+      href="https://www.instagram.com/p/Dfbc2arTuQp/?psln=MTB3OHZ0dGNlbjI4OA=="
+      target="_blank"
+      rel="noreferrer"
+    >
+      Official Instagram Event Post ↗
+    </a>
+  </li>
+</ul>
     </section>
   )
 }

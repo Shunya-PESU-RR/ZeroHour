@@ -5,6 +5,8 @@ import ShunyaLogo from "../components/ShunyaLogo"
 import MoireBackground from "../components/MoireBackground"
 import AnamorphicInfinity from "./AnamorphicInfinity"
 import SocialFooter from "../components/SocialFooter"
+import EventCountdown from "./EventCountdown"
+import { eventDates, eventSessions, eventVenue, overnightNotice } from "./eventSchedule"
 import { Competition, EventContact, ParticipantGuide, SectionHeading, Tracks } from './EventProgram'
 import "./landing.css"
 
@@ -92,18 +94,22 @@ function Hero() {
           </div>
           <div className="hero-title">
             <ZeroHourWordmark />
-            <p className="tagline">  A 24 Hour Mathematics Hackathon</p>
+            <p className="tagline">A two-day mathematics and technology hackathon</p>
           </div>
           <dl className="event-stamp">
             <div>
               <dt>DATE</dt>
-              <dd>NOVEMBER 14 & 15,2026</dd>
+              <dd>{eventDates}</dd>
             </div>
             <div>
               <dt>VENUE</dt>
-              <dd>13TH FLOOR BE BLOCK, PES UNIVERSITY RR CAMPUS</dd>
+              <dd>13th Floor, BE Block — PESU RR Campus</dd>
             </div>
+            {eventSessions.map(({ day, hours }) => (
+              <div key={day}><dt>Day {day}</dt><dd>{hours}</dd></div>
+            ))}
           </dl>
+          <p className="schedule-notice">{overnightNotice}</p>
           <div className="hero-actions">
             <a
               className="button button-primary"
@@ -135,7 +141,7 @@ function About() {
         number="01"
         label="ABOUT ZEROHOUR"
         title="Where Mathematics Meets Innovation."
-        text="ZeroHour 1.0 is a two-day state-level hackathon organized by SHUNYA, PES University, bringing together students passionate about mathematics, technology, programming, logical reasoning, and innovation."
+        text="ZeroHour 1.0 is a two-day state-level hackathon organized by SHUNYA, PES University RR Campus, bringing together students passionate about mathematics, technology, programming, logical reasoning, and innovation."
       />
       <div className="about-layout">
         <div className="about-statement">
@@ -173,23 +179,24 @@ function Details() {
       <SectionHeading
         number="05"
         label="EVENT DETAILS"
-        title="24 hours. Zero assumptions."
+        title="Two Days. One Challenge."
       />
-      <div className="detail-grid">
-        <article>
-          <span>WHEN</span>
-          <b>NOVEMBER</b>
-          <strong>14—15, 2026</strong>
-        </article>
-        <article>
-          <span>DURATION</span>
-          <b>24</b>
-          <strong>HOURS</strong>
-        </article>
-
-        <article><span>TEAM SIZE</span><b>3–4</b><strong>PEOPLE</strong></article>
-        <article><span>VENUE</span><b>13TH FLOOR</b><strong>BE BLOCK</strong></article>
-      </div>
+      <ol className="schedule-sessions">
+        {eventSessions.map(({ day, date, hours, label }) => (
+          <li key={day}>
+            <p className="schedule-day">Day {day} <span>— {date}</span></p>
+            <h3>{hours}</h3>
+            <p className="schedule-label">{label}</p>
+          </li>
+        ))}
+      </ol>
+      <dl className="schedule-info">
+        <div><dt>Venue</dt><dd>{eventVenue}</dd></div>
+        <div><dt>Team size</dt><dd>3–4 members</dd></div>
+        <div><dt>Dates</dt><dd>{eventDates}</dd></div>
+        <div><dt>Overnight stay</dt><dd>Not provided</dd></div>
+      </dl>
+      <p className="schedule-footnote">Detailed round timings and participant instructions will be communicated by the organizers.</p>
     </section>
   )
 }
@@ -223,6 +230,7 @@ export default function Landing() {
       <main>
         <MoireBackground />
         <Hero />
+        <EventCountdown />
         <About />
         <section className="section zero-hour-concept" id="zero-hour">
           <SectionHeading number="02" label="THE ZERO HOUR" title="Before the code, the math." />
@@ -230,7 +238,7 @@ export default function Landing() {
             <PhasePortrait />
             <div className="zero-hour-copy">
               <p>At ZeroHour, innovation begins where conventional thinking ends.</p>
-              <p>24 hours of intense problem-solving, bold ideas, and unexpected challenges await. Push your mathematical intuition, challenge your assumptions, and turn creativity into something extraordinary.</p>
+              <p>Across two days, tackle challenging problems, test bold ideas, and build solutions with your team.</p>
               <p>But there's a twist. The first hour plays by different rules. Are you ready?</p>
             </div>
           </div>

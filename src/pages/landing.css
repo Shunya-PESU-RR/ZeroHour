@@ -239,6 +239,87 @@
 .landing .event-stamp div { display: grid; gap: 4px; }
 .landing .event-stamp dd { margin: 0; font-weight: 700; }
 .landing .event-stamp dt { color: var(--muted); font-size: .64rem; letter-spacing: .12em; }
+.landing .hero .event-stamp {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.landing .schedule-notice {
+  padding-inline-start: 10px;
+  border-inline-start: 2px solid var(--accent);
+  color: var(--paper);
+  font: .8rem/1.5 var(--font-body);
+}
+
+.landing .schedule-sessions,
+.landing .schedule-info {
+  display: grid;
+  gap: clamp(12px, 3vw, 36px);
+  padding: 0;
+  margin: 0;
+}
+
+.landing .schedule-sessions {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  border-block: 1px solid var(--edge);
+  list-style: none;
+}
+
+.landing .schedule-sessions li {
+  min-width: 0;
+  padding: clamp(16px, 3.5vw, 48px);
+  border-top: 2px solid var(--accent);
+  background: repeating-linear-gradient(115deg, #b697ee0c 0 1px, transparent 1px 18px), #211423;
+}
+
+.landing .schedule-sessions li + li {
+  border-top-color: var(--ultraviolet);
+  border-inline-start: 1px solid var(--edge);
+}
+
+.landing .schedule-day,
+.landing .schedule-label,
+.landing .schedule-info dt {
+  color: var(--muted);
+  font: .75rem/1.4 var(--font-mono);
+  text-transform: uppercase;
+}
+
+.landing .schedule-day { color: var(--accent); }
+.landing .schedule-day span { color: var(--muted); }
+.landing .schedule-sessions h3 {
+  margin-block: 12px;
+  font: 700 clamp(1.35rem, 3vw, 3rem)/1.12 var(--font-display);
+  letter-spacing: -.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+.landing .schedule-info {
+  grid-template-columns: 2fr 1fr 1.3fr 1fr;
+  margin-block-start: 18px;
+  padding-block: 14px;
+  border-block-end: 1px solid var(--edge);
+}
+
+.landing .schedule-info dd { margin: 4px 0 0; }
+.landing .schedule-footnote { margin-top: 14px; color: var(--muted); font-size: .9rem; }
+
+@media (max-width: 640px) {
+  .landing .schedule-sessions { grid-template-columns: 1fr; }
+  .landing .schedule-sessions li + li { border-inline-start: 0; }
+  .landing .schedule-info { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .landing .schedule-sessions li {
+      animation: editorial-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 80%;
+    }
+  }
+}
 .landing .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
 .landing .button {
   display: inline-flex;
@@ -324,7 +405,7 @@
 @keyframes sketch-to-grid { from { transform: translate(-20%, -8%) rotate(-12deg); } }
 
 .landing .about-layout { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(26px, 6vw, 96px); align-items: stretch; }
-.landing .about-statement, .landing .detail-grid article {
+.landing .about-statement {
   position: relative;
   border: 1px solid var(--edge);
   background: linear-gradient(145deg, #2b1b2e, #1d121e);
@@ -381,19 +462,6 @@
 .landing .about-cards article > span { position: absolute; top: 22px; left: 6px; color: #ff9f88; font: .68rem var(--font-mono); }
 .landing .about-cards h3 { margin-bottom: 4px; }
 
-.landing .detail-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 13px; }
-.landing .detail-grid article {
-  display: grid;
-  align-content: space-between;
-  min-height: 210px;
-  padding: clamp(14px, 2vw, 27px);
-  transition: transform .24s ease, border-color .24s ease;
-}
-.landing .detail-grid article:hover { transform: translate(-2px, -4px); border-color: #bc837d; }
-.landing .detail-grid article > span, .landing .detail-grid article > p { color: var(--muted); font: .67rem/1.5 var(--font-mono); }
-.landing .detail-grid b { font-family: var(--font-display); font-size: clamp(1.3rem, 3.4vw, 3rem); line-height: 1; letter-spacing: -.06em; }
-.landing .detail-grid strong { color: var(--mint); font: 700 clamp(.9rem, 1.5vw, 1.4rem) var(--font-mono); }
-
 .landing .registration {
   display: grid;
   justify-items: center;
@@ -408,8 +476,6 @@
   .landing .hero-inner { max-width: 560px; grid-template-columns: minmax(0, 1fr); gap: clamp(22px, 5vw, 36px); }
   .landing .hero-aperture { aspect-ratio: 1.8; }
   .landing .about-layout { grid-template-columns: 1fr; }
-  .landing .detail-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .landing .detail-grid article { min-height: 155px; }
 }
 
 @media (max-width: 500px) {
@@ -422,5 +488,5 @@
 
 @media (prefers-reduced-motion: reduce) {
   .landing *, .landing *::before, .landing *::after { transition: none; }
-  .landing .button:hover, .landing .detail-grid article:hover { transform: none; }
+  .landing .button:hover { transform: none; }
 }

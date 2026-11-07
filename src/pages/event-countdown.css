@@ -1,0 +1,130 @@
+.landing .event-countdown {
+  position: relative;
+  padding: clamp(24px, 4vw, 52px) var(--gutter);
+}
+
+.landing .event-countdown-inner {
+  max-inline-size: var(--container);
+  margin-inline: auto;
+  padding: clamp(16px, 4vw, 40px);
+  display: grid;
+  gap: clamp(14px, 3vw, 28px);
+  text-align: center;
+  border-block: 1px solid var(--edge);
+  background:
+    linear-gradient(90deg, #171019 6%, #211423e6 50%, #171019 94%),
+    repeating-linear-gradient(115deg, #b697ee40 0 1px, transparent 1px 8px);
+}
+
+.landing .event-countdown h2 {
+  color: var(--paper);
+  font: 700 clamp(1.3rem, 3vw, 2.2rem)/1.15 var(--font-display);
+  letter-spacing: -.025em;
+  text-transform: uppercase;
+}
+
+.landing .event-countdown p { margin-block-start: 8px; color: var(--muted); }
+
+.landing .event-countdown-units {
+  inline-size: min(100%, 37rem);
+  justify-self: center;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(8px, 2.5vw, 28px);
+}
+
+.landing .event-countdown-unit {
+  position: relative;
+  min-inline-size: 0;
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  padding-block: clamp(6px, 1.5vw, 15px);
+  border-block: 1px solid var(--edge);
+}
+
+.landing .event-countdown-unit + .event-countdown-unit::before {
+  content: "";
+  position: absolute;
+  inset: 40% auto auto calc(-1 * clamp(8px, 2.5vw, 28px) / 2);
+  inline-size: 3px;
+  block-size: 3px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 6px var(--accent);
+  transform: translateX(-50%);
+}
+
+.landing .event-countdown-value {
+  position: relative;
+  color: var(--paper);
+  font: 700 clamp(1.25rem, 6.5vw, 4.4rem)/1 var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.landing .event-countdown-digit { display: block; }
+.landing .event-countdown-arrival { position: relative; display: inline-block; }
+.landing .event-countdown-echo {
+  position: absolute;
+  inset: 0;
+  color: var(--accent);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.landing .event-countdown-value .event-countdown-echo::after {
+  position: absolute;
+  inset: 0;
+  content: attr(data-value);
+  color: #ba9bec;
+  clip-path: inset(56% 0 24%);
+  transform: translateX(5px);
+}
+
+.landing .event-countdown-label {
+  color: var(--muted);
+  font: clamp(.6rem, 1.4vw, .8rem)/1.2 var(--font-mono);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .landing .event-countdown-digit { animation: countdown-tick .19s ease-out; }
+  .landing .event-countdown-unit { transition: border-color .22s ease; }
+  .landing .event-countdown-unit[data-glitch] .event-countdown-echo,
+  .landing .event-countdown-arrival .event-countdown-echo {
+    animation: countdown-echo .2s ease-out;
+  }
+  .landing .event-countdown-unit[data-glitch] .event-countdown-value {
+    animation: countdown-slice .2s ease-out;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .landing .event-countdown-unit:hover { border-color: var(--accent); }
+  .landing .event-countdown-unit:hover {
+    background:
+      repeating-linear-gradient(115deg, #b697ee0e 0 1px, transparent 1px 7px),
+      repeating-linear-gradient(119deg, #ff806810 0 1px, transparent 1px 7.4px);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .landing .event-countdown-value {
+      translate: var(--countdown-lens, 0px) 0;
+      transition: translate .2s ease-out;
+    }
+  }
+}
+
+@keyframes countdown-tick {
+  from { opacity: .78; transform: translate(1px, 2px); }
+}
+
+@keyframes countdown-echo {
+  0% { opacity: 0; transform: translateX(0); }
+  28% { opacity: .36; transform: translateX(-3px); }
+  100% { opacity: 0; transform: translateX(0); }
+}
+
+@keyframes countdown-slice {
+  28% { text-shadow: 2px 0 #ba9bec55; }
+}
