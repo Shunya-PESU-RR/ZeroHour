@@ -1,0 +1,206 @@
+.landing .event-program {
+  --program-rule: color-mix(in srgb, var(--accent) 24%, var(--edge));
+}
+
+.landing .event-program h3 {
+  font: 700 clamp(1.15rem, 2.3vw, 1.8rem)/1.15 var(--font-display);
+  letter-spacing: -.03em;
+}
+
+.landing .event-program :is(p, ul, ol) { color: var(--muted); }
+.landing .event-program :is(ul, ol) { margin-block: 0; }
+.landing .event-program .program-tagline { color: var(--paper); font-weight: 700; }
+
+.landing .program-tracks {
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr);
+  gap: clamp(20px, 4vw, 58px);
+}
+
+.landing .program-track {
+  min-width: 0;
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  padding: clamp(16px, 3vw, 36px);
+  border-block-start: 1px solid var(--program-rule);
+  border-inline-start: 1px solid var(--edge);
+  background: linear-gradient(130deg, #2b1b2e, #171019 68%);
+}
+
+.landing .program-track:focus-within,
+.landing .program-track:hover { border-block-start-color: var(--accent); }
+
+.landing .program-track-figure {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  color: var(--accent);
+}
+
+.landing .program-track-figure > span,
+.landing .program-podium span {
+  font: 700 clamp(2.2rem, 6vw, 5.2rem)/1 var(--font-display);
+  letter-spacing: -.08em;
+}
+
+.landing .program-track-art {
+  width: min(72%, 232px);
+  height: auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+}
+
+.landing .program-track:nth-child(even) .program-track-art { color: #ba9bec; }
+.landing .program-gridline { opacity: .24; stroke-width: .7; }
+.landing .program-track-art circle { fill: #211423; }
+.landing .program-track-art .program-signal { stroke: var(--paper); stroke-dasharray: 5 4; }
+
+.landing .program-roadmap {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(20px, 4vw, 60px);
+  padding: 0;
+  list-style: none;
+}
+
+.landing .program-roadmap::before {
+  position: absolute;
+  inset: 16px 0 auto;
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent), var(--ultraviolet), var(--mint));
+  transform-origin: left;
+  content: "";
+}
+
+.landing .program-roadmap > li {
+  position: relative;
+  display: grid;
+  align-content: start;
+  justify-items: start;
+  gap: 14px;
+}
+
+.landing .program-round {
+  padding: 7px 11px;
+  border: 1px solid var(--program-rule);
+  background: #211423;
+  color: var(--paper);
+  font: .8rem/1.25 var(--font-mono);
+}
+
+.landing .program-roadmap ul,
+.landing .program-answer :is(ul, ol) { padding-inline-start: 1.4em; }
+
+.landing .program-roadmap strong { color: var(--paper); }
+
+.landing .program-features {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px clamp(24px, 5vw, 72px);
+}
+
+.landing .program-features article {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 7px 12px;
+  border-block-start: 1px solid var(--edge);
+  padding-block: 14px;
+}
+.landing .program-features span { color: var(--accent); font: .8rem/1.7 var(--font-mono); }
+.landing .program-features p { grid-column: 2; }
+
+.landing .program-disclosure { border-block-start: 1px solid var(--edge); }
+.landing .program-disclosure:last-child { border-block-end: 1px solid var(--edge); }
+.landing .program-disclosure summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 48px;
+  padding: 12px 4px;
+  cursor: pointer;
+  list-style: none;
+  font-weight: 700;
+}
+.landing .program-disclosure summary::-webkit-details-marker { display: none; }
+.landing .program-disclosure summary::after {
+  flex: none;
+  content: "";
+  width: .55em;
+  height: .55em;
+  border: solid var(--accent);
+  border-width: 0 1.5px 1.5px 0;
+  transform: rotate(45deg);
+}
+.landing .program-disclosure[open] > summary::after { transform: rotate(225deg); }
+.landing .program-disclosure summary:focus-visible { outline: 2px solid var(--mint); outline-offset: -2px; }
+.landing .program-answer { padding: 0 4px 16px; max-width: 70ch; }
+.landing .event-program a { text-decoration: underline; text-underline-offset: .25em; }
+
+.landing .program-podium {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: end;
+  gap: clamp(5px, 2vw, 20px);
+  padding: 0 0 16px;
+  list-style: none;
+}
+.landing .program-podium li {
+  display: grid;
+  align-content: end;
+  gap: 8px;
+  min-height: 104px;
+  padding: clamp(8px, 2vw, 24px);
+  border: 1px solid var(--program-rule);
+  background: repeating-linear-gradient(135deg, #b697ee16 0 1px, transparent 1px 16px), #211423;
+  color: var(--paper);
+  overflow-wrap: anywhere;
+}
+.landing .program-podium li:first-child { min-height: 160px; border-top-color: var(--accent); }
+.landing .program-podium li:nth-child(2) { min-height: 132px; }
+.landing .program-podium span { color: var(--accent); }
+.landing .program-podium strong { font: 700 clamp(.68rem, 1.6vw, 1rem)/1.2 var(--font-mono); text-transform: uppercase; }
+
+.landing .program-contact { padding-block: 24px 36px; }
+.landing .program-contact h2 { margin-bottom: 10px; font: 700 1.1rem var(--font-display); }
+.landing .program-contact ul { display: flex; flex-wrap: wrap; gap: 8px 24px; list-style: none; padding: 0; }
+.landing .program-contact a { white-space: nowrap; }
+.landing .zero-hour-copy { position: relative; display: grid; gap: 16px; max-width: 37ch; }
+
+@media (max-width: 760px) {
+  .landing .program-tracks,
+  .landing .program-features,
+  .landing .program-roadmap { grid-template-columns: 1fr; }
+  .landing .program-roadmap { padding-inline-start: 25px; }
+  .landing .program-roadmap::before {
+    inset: 0 auto 0 6px;
+    width: 1px;
+    height: auto;
+    background: linear-gradient(var(--accent), var(--ultraviolet), var(--mint));
+    transform-origin: top;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .landing .program-disclosure[open] .program-answer { animation: program-reveal .22s ease-out; }
+  .landing .program-track:is(:hover, :focus-within) .program-signal { animation: program-signal 1.4s linear; }
+  @supports (animation-timeline: view()) {
+    .landing .program-roadmap::before {
+      animation: program-progress linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 40%;
+    }
+    @media (max-width: 760px) {
+      .landing .program-roadmap::before { animation-name: program-progress-vertical; }
+    }
+  }
+}
+
+@keyframes program-reveal { from { opacity: .35; transform: translateY(-4px); } }
+@keyframes program-signal { from { stroke-dashoffset: 27; } to { stroke-dashoffset: 0; } }
+@keyframes program-progress { from { transform: scaleX(.1); } }
+@keyframes program-progress-vertical { from { transform: scaleY(.1); } }

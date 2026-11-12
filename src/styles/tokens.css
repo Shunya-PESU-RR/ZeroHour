@@ -1,0 +1,27 @@
+:root {
+  --bg: #100c12; --panel: #1d121e; --panel2: #261b2c; --line: #61465e;
+  --ink: #f6eee4; --muted: #c7b9bf;
+  --purple: #b6a5ff; --ok: #9bd8c6; --warn: #ffad89; --info: #b6a5ff; --bad: #ff9f94;
+  --grad: linear-gradient(115deg, #9e392c, #5a419d);
+  --coral: #ff654d; --violet: #7259c8; --mint: #9bd8c6;
+  --edge: rgba(221, 174, 153, .26);
+  --surface-gradient: linear-gradient(145deg, #2a1a2b, var(--panel) 65%);
+  --page-light: radial-gradient(ellipse at 12% 5%, #39212d 0, transparent 48%), radial-gradient(ellipse at 90% 30%, #29203d 0, transparent 52%);
+  --shadow-panel: 0 18px 46px rgba(8, 5, 12, .28), 0 1px 0 rgba(242, 182, 160, .07) inset;
+  --radius-control: .625rem; --radius-card: .875rem; --radius-panel: 1.125rem;
+  --space-xs: .375rem; --space-sm: .75rem; --space-md: 1rem; --space-lg: 1.5rem;
+  --font-body: Inter, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Space Grotesk', var(--font-body);
+  --font-mono: 'Space Mono', ui-monospace, monospace;
+  --text-body: 1rem; --text-label: .875rem; --text-meta: .75rem;
+  --text-page-title: clamp(1.5rem, 1.25rem + 1.25vw, 2.125rem);
+  --text-section-title: clamp(1.125rem, 1rem + .5vw, 1.5rem);
+  --text-card-title: 1rem;
+  --button-height: 48px; --button-padding: 16px; --button-radius: 2px;
+  --button-border: #bd786e;
+  --button-shadow: 3px 4px 0 #0b080e, 3px 4px 0 1px #61465e;
+  --button-hover-border: #f2c4a9;
+  --transition-control: .22s ease;
+  font-family: var(--font-body);
+  color-scheme: dark;
+}
